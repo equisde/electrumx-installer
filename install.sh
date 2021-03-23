@@ -241,7 +241,7 @@ if [ $UPDATE_ONLY == 0 ] || [ $UPDATE_PYTHON == 1 ]; then
 		_status "Cleaning up"
 		package_cleanup	
 	fi
-	_info "electrumx has been installed successfully. Edit /etc/electrumx.conf to configure it."
+	_info "electrumx has been installed successfully. Edit /mnt/electrumx.conf to configure it."
 else
 	_info "Updating electrumx"
 	i=0
