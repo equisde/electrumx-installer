@@ -10,8 +10,8 @@ function check_pyrocksdb {
 
 function install_electrumx {
 	_DIR=$(pwd)
-	rm -rf "/tmp/electrumx/"
-	git clone $ELECTRUMX_GIT_URL /tmp/electrumx
+	rm -rf "/mnt/electrumx/"
+	git clone $ELECTRUMX_GIT_URL /mnt/electrumx
 	cd /tmp/electrumx
 	if [ -n "$ELECTRUMX_GIT_BRANCH" ]; then
 		git checkout $ELECTRUMX_GIT_BRANCH
@@ -65,22 +65,22 @@ function generate_cert {
 		return
 	fi
 	_DIR=$(pwd)
-	mkdir -p /etc/electrumx/
-	cd /etc/electrumx
+	mkdir -p /mnt/electrumx/
+	cd /mnt/electrumx
 	openssl genrsa -des3 -passout pass:xxxx -out server.pass.key 2048
 	openssl rsa -passin pass:xxxx -in server.pass.key -out server.key
 	rm server.pass.key
 	openssl req -new -key server.key -batch -out server.csr
 	openssl x509 -req -days 1825 -in server.csr -signkey server.key -out server.crt
 	rm server.csr
-	chown electrumx:electrumx /etc/electrumx -R
-	chmod 600 /etc/electrumx/server*
+	chown electrumx:electrumx /mnt/electrumx -R
+	chmod 600 /mnt/electrumx/server*
 	cd $_DIR
-	echo -e "\nSSL_CERTFILE=/etc/electrumx/server.crt" >> /etc/electrumx.conf
-	echo "SSL_KEYFILE=/etc/electrumx/server.key" >> /etc/electrumx.conf
-        echo "TCP_PORT=50001" >> /etc/electrumx.conf
-        echo "SSL_PORT=50002" >> /etc/electrumx.conf
-        echo -e "# Listen on all interfaces:\nHOST=" >> /etc/electrumx.conf
+	echo -e "\nSSL_CERTFILE=/etc/electrumx/server.crt" >> /mnt/electrumx.conf
+	echo "SSL_KEYFILE=/etc/electrumx/server.key" >> /mnt/electrumx.conf
+        echo "TCP_PORT=50001" >> /mnt/electrumx.conf
+        echo "SSL_PORT=50002" >> /mnt/electrumx.conf
+        echo -e "# Listen on all interfaces:\nHOST=" >> /mnt/electrumx.conf
 }
 
 function ver { printf "%03d%03d%03d%03d" $(echo "$1" | tr '.' ' '); }
