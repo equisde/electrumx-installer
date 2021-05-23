@@ -12,7 +12,7 @@ function install_electrumx {
 	_DIR=$(pwd)
 	rm -rf "/mnt/electrumx/"
 	git clone $ELECTRUMX_GIT_URL /mnt/electrumx
-	cd /tmp/electrumx
+	cd /mnt/electrumx
 	if [ -n "$ELECTRUMX_GIT_BRANCH" ]; then
 		git checkout $ELECTRUMX_GIT_BRANCH
 	else
